@@ -34,7 +34,7 @@ class App extends Component {
                       return (
                         <li key={result.item.id}>
                           {active && "💩"}
-                          <big>{result.item.title}</big> -
+                          <big>{result.item.title}</big> -&nbsp;
                           <small>{result.item.description}</small>
                         </li>
                       );

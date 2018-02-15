@@ -14,11 +14,7 @@ export default class CurrentResults extends React.Component {
 
   render() {
     return (
-      <FuseContext.Consumer>
-        {({ state }) => {
-          return this.props.children({ state });
-        }}
-      </FuseContext.Consumer>
+      <FuseContext.Consumer>{({ state }) => this.props.children({ state })}</FuseContext.Consumer>
     );
   }
 }
