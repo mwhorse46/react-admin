@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import logo from "./fuse.svg";
 import "./App.css";
-import { FuseBox, InputBus, CurrentResults } from "./../ReactFuse";
+import { FuseBox, InputBus, CurrentResults } from "../lib";
 
 class App extends Component {
   state = {
