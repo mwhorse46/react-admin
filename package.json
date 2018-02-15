@@ -1,6 +1,6 @@
 {
   "name": "react-fuse",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Daryl Roberts <daryl.roberts@gmail.com>",
   "main": "/dist/main.js",
   "license": "MIT",
@@ -16,7 +16,7 @@
     "react-dom": "^16.3.0"
   },
   "scripts": {
-    "build": "./node_modules/react-scripts/node_modules/.bin/webpack",
+    "build": "NODE_ENV=production ./node_modules/react-scripts/node_modules/.bin/webpack",
     "build:demo": "react-scripts build",
     "start": "react-scripts start",
     "test": "react-scripts test --env=jsdom"
