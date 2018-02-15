@@ -1,4 +1,14 @@
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory(require("react"));
+	else if(typeof define === 'function' && define.amd)
+		define(["react"], factory);
+	else if(typeof exports === 'object')
+		exports["ReactFuse"] = factory(require("react"));
+	else
+		root["ReactFuse"] = factory(root["react"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_2__) {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -410,7 +420,7 @@ var _initialiseProps = function _initialiseProps() {
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = react;
+module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
 
 /***/ }),
 /* 3 */
@@ -2559,3 +2569,4 @@ InputBus.propTypes = {
 
 /***/ })
 /******/ ]);
+});

@@ -5,6 +5,8 @@ module.exports = {
   output: {
     path: __dirname + "/dist",
     filename: "[name].js",
+    libraryTarget: "umd",
+    library: "ReactFuse",
   },
   module: {
     rules: [
