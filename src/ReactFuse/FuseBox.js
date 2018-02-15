@@ -59,6 +59,11 @@ export default class FuseBox extends React.Component {
     const { value } = event.target;
     const results = this.state.fuse.search(value);
     this.setState({ value, results });
+
+    if (this.state.selectedIndex > results.length - 1) {
+      this.setState({ selectedIndex: Math.max(results.length - 1, 0) });
+    }
+
     this.props.handleChange(event);
   };
 
@@ -74,7 +79,7 @@ export default class FuseBox extends React.Component {
       case 40: // ArrowDown
         event.preventDefault();
         this.setState(state => {
-          return { selectedIndex: Math.min(++state.selectedIndex, state.results.length) };
+          return { selectedIndex: Math.min(++state.selectedIndex, state.results.length - 1) };
         });
         break;
 
@@ -93,7 +98,7 @@ export default class FuseBox extends React.Component {
     const value = {
       state: this.state,
       onChange: this.handleInputChange,
-      onKeyDown: this.onKeyDown,
+      onKeyDown: this.handleInputKeyDown,
     };
 
     return <FuseContext.Provider value={value}>{this.props.children}</FuseContext.Provider>;

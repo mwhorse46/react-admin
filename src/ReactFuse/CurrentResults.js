@@ -16,10 +16,7 @@ export default class CurrentResults extends React.Component {
     return (
       <FuseContext.Consumer>
         {({ state }) => {
-          return state.results.slice(0, this.props.maxResults).map((result, index) => {
-            const active = state.selectedIndex === index;
-            return this.props.children({ result, index, active });
-          });
+          return this.props.children({ state });
         }}
       </FuseContext.Consumer>
     );
