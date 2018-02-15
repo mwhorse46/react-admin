@@ -4,6 +4,10 @@ import PropTypes from "prop-types";
 import { FuseContext } from "./FuseBox";
 
 export default class CurrentResults extends React.Component {
+  static defaultProps = {
+    maxResults: Infinity,
+  };
+
   static propTypes = {
     children: PropTypes.func.isRequired,
   };
@@ -12,7 +16,7 @@ export default class CurrentResults extends React.Component {
     return (
       <FuseContext.Consumer>
         {({ state }) => {
-          return state.results.map((result, index) => {
+          return state.results.slice(0, this.props.maxResults).map((result, index) => {
             const active = state.selectedIndex === index;
             return this.props.children({ result, index, active });
           });

@@ -2,14 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import Fuse from "fuse.js";
 
-// import InputBus from "./InputBus";
-// import CurrentResult from "./CurrentResult";
-
 export const FuseContext = React.createContext({});
 
 export default class FuseBox extends React.Component {
   static defaultProps = {
-    search: "",
+    defaultSearch: "",
     maxResults: 20,
     handleChange: () => {},
     handleSubmit: () => {},
@@ -20,13 +17,13 @@ export default class FuseBox extends React.Component {
     list: PropTypes.array.isRequired,
     maxResults: PropTypes.number,
     options: PropTypes.object,
-    search: PropTypes.string,
+    defaultSearch: PropTypes.string,
   };
 
   constructor(props) {
     super(props);
 
-    const value = this.props.search;
+    const value = this.props.defaultSearch;
     const fuse = new Fuse(this.props.list, this.getOptions(this.props));
     const results = fuse.search(value);
 
@@ -38,15 +35,13 @@ export default class FuseBox extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    const fuse = new Fuse(nextProps.list, this.getOptions(nextProps));
-    const results = this.getFuseResults(fuse, this.state.value);
-    this.setState({ fuse, results });
+  componentDidUpdate(prevProps) {
+    if (this.props.list !== prevProps.list) {
+      const fuse = new Fuse(this.props.list, this.getOptions(prevProps));
+      const results = fuse.search(this.value);
+      this.setState({ fuse, results });
+    }
   }
-
-  getFuseResults = (fuse, value) => {
-    return fuse.search(value).slice(0, this.props.maxResults);
-  };
 
   getOptions(props) {
     return {
@@ -54,7 +49,7 @@ export default class FuseBox extends React.Component {
       shouldSort: true,
       threshold: 0.4,
       minMatchCharLength: 2,
-      keys: this.props.keys,
+      keys: props.keys,
       ...props.options,
     };
   }
@@ -62,7 +57,7 @@ export default class FuseBox extends React.Component {
   handleInputChange = event => {
     event.preventDefault();
     const { value } = event.target;
-    const results = this.getFuseResults(this.state.fuse, value);
+    const results = this.state.fuse.search(value);
     this.setState({ value, results });
     this.props.handleChange(event);
   };
@@ -71,14 +66,16 @@ export default class FuseBox extends React.Component {
     switch (event.keyCode) {
       case 38: // ArrowUp
         event.preventDefault();
-        this.setState(state => ({ selectedIndex: Math.max(--state.selectedIndex, 0) }));
+        this.setState(state => {
+          return { selectedIndex: Math.max(--state.selectedIndex, 0) };
+        });
         break;
 
       case 40: // ArrowDown
         event.preventDefault();
-        this.setState(state => ({
-          selectedIndex: Math.min(++state.selectedIndex, state.results.length),
-        }));
+        this.setState(state => {
+          return { selectedIndex: Math.min(++state.selectedIndex, state.results.length) };
+        });
         break;
 
       case 13: // Enter
