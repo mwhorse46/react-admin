@@ -1,6 +1,6 @@
 {
   "name": "react-fuse",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "Daryl Roberts <daryl.roberts@gmail.com>",
   "main": "/dist/main.js",
   "license": "MIT",
