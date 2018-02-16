@@ -5,15 +5,15 @@ import { FuseContext } from "./FuseBox";
 
 export default class InputBus extends React.Component {
   static defaultProps = {
-    Component: "input",
+    component: "input",
   };
 
   static propTypes = {
-    Component: PropTypes.any,
+    component: PropTypes.any,
   };
 
   render() {
-    const { Component, ...rest } = this.props;
+    const { component: Component, ...rest } = this.props;
 
     return (
       <FuseContext.Consumer>

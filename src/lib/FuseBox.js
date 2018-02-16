@@ -60,6 +60,7 @@ export default class FuseBox extends React.Component {
     const results = this.state.fuse.search(value);
     this.setState({ value, results });
 
+    // Move the selected item down as the list shrinks.
     if (this.state.selectedIndex > results.length - 1) {
       this.setState({ selectedIndex: Math.max(results.length - 1, 0) });
     }

@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define(["react"], factory);
 	else if(typeof exports === 'object')
-		exports["ReactFuse"] = factory(require("react"));
+		exports["<lib name>"] = factory(require("react"));
 	else
-		root["ReactFuse"] = factory(root["react"]);
+		root["<lib name>"] = factory(root["react"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_2__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -376,6 +376,7 @@ var _initialiseProps = function _initialiseProps() {
     var results = _this2.state.fuse.search(value);
     _this2.setState({ value: value, results: results });
 
+    // Move the selected item down as the list shrinks.
     if (_this2.state.selectedIndex > results.length - 1) {
       _this2.setState({ selectedIndex: Math.max(results.length - 1, 0) });
     }
@@ -2540,8 +2541,8 @@ var InputBus = function (_React$Component) {
     key: "render",
     value: function render() {
       var _props = this.props,
-          Component = _props.Component,
-          rest = _objectWithoutProperties(_props, ["Component"]);
+          Component = _props.component,
+          rest = _objectWithoutProperties(_props, ["component"]);
 
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         __WEBPACK_IMPORTED_MODULE_2__FuseBox__["a" /* FuseContext */].Consumer,
@@ -2560,10 +2561,10 @@ var InputBus = function (_React$Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
 InputBus.defaultProps = {
-  Component: "input"
+  component: "input"
 };
 InputBus.propTypes = {
-  Component: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.any
+  component: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.any
 };
 /* harmony default export */ __webpack_exports__["a"] = (InputBus);
 
