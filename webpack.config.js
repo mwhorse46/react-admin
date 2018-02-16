@@ -15,5 +15,8 @@ module.exports = {
       },
     ],
   },
-  externals: { react: "react" },
+  externals: {
+    react: "react",
+    "fuse.js": "fuse.js",
+  },
 };

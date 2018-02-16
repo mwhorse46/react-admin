@@ -1,6 +1,6 @@
 {
   "name": "react-fuse",
-  "version": "0.1.3",
+  "version": "0.2",
   "author": "Daryl Roberts <daryl.roberts@gmail.com>",
   "main": "/dist/main.js",
   "license": "MIT",
@@ -12,6 +12,7 @@
     "react-scripts": "1.1.1"
   },
   "peerDependencies": {
+    "fuse.js": "^3.2.0",
     "react": "^16.3.0",
     "react-dom": "^16.3.0"
   },
@@ -20,8 +21,5 @@
     "build:demo": "react-scripts build",
     "start": "react-scripts start",
     "test": "react-scripts test --env=jsdom"
-  },
-  "dependencies": {
-    "fuse.js": "^3.2.0"
   }
 }
