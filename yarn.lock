@@ -2963,6 +2963,10 @@ he@1.1.x:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/he/-/he-1.1.1.tgz#93410fd21b009735151f8868c2f271f3427e23fd"
 
+highlight-words-core@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/highlight-words-core/-/highlight-words-core-1.1.2.tgz#5c2717c4f6c6e7ea2462ab85b43ff8b24f58ec3e"
+
 hmac-drbg@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/hmac-drbg/-/hmac-drbg-1.0.1.tgz#d2745701025a6c775a6c545793ed502fc0c649a1"

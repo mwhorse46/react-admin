@@ -26,5 +26,8 @@
     "build:demo": "react-scripts build",
     "start": "react-scripts start",
     "test": "react-scripts test --env=jsdom"
+  },
+  "dependencies": {
+    "highlight-words-core": "^1.1.2"
   }
 }

@@ -1,7 +1,7 @@
 // import "bootstrap/dist/css/bootstrap.css";
 import React, { Component } from "react";
 import logo from "./react-fuse.svg";
-import { FuseBox, InputBus, CurrentResults } from "../lib";
+import { Highlighter, FuseBox, InputBus, CurrentResults } from "../lib";
 import {
   Container,
   CardTitle,
@@ -44,15 +44,32 @@ class App extends Component {
                 return (
                   <Container>
                     <Row>
-                      {state.results.map(({ item }, index) => {
+                      {state.results.map(({ item, matches }, index) => {
                         const active = state.selectedIndex === index;
                         const color = active ? "light" : null;
+
+                        const title = (
+                          <Highlighter
+                            match={matches.find(o => o.key === "title")}
+                            key="title"
+                            string={item.title}
+                          />
+                        );
+
+                        const description = (
+                          <Highlighter
+                            match={matches.find(o => o.key === "description")}
+                            key="description"
+                            string={item.description}
+                          />
+                        );
+
                         return (
                           <Col lg={3} key={item.id}>
                             <Card color={color}>
                               <CardBody>
-                                <CardTitle>{item.title}</CardTitle>
-                                {item.description}
+                                <CardTitle>{title}</CardTitle>
+                                {description}
                               </CardBody>
                             </Card>
                             <br />

@@ -25,7 +25,7 @@ export default class FuseBox extends React.Component {
 
     const value = this.props.defaultSearch;
     const fuse = new Fuse(this.props.list, this.getOptions(this.props));
-    const results = this.getResults(fuse.search(value));
+    const results = this.getResults(fuse, value);
 
     this.state = {
       value,
@@ -38,7 +38,7 @@ export default class FuseBox extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.props.list !== prevProps.list) {
       const fuse = new Fuse(this.props.list, this.getOptions(prevProps));
-      const results = this.getResults(fuse.search(this.value));
+      const results = this.getResults(fuse, this.state.value);
       this.setState({ fuse, results });
     }
   }
@@ -46,8 +46,10 @@ export default class FuseBox extends React.Component {
   getOptions(props) {
     return {
       includeMatches: true,
+      includeScore: true,
       shouldSort: true,
-      threshold: 0.4,
+      // tokenize: true,
+      // threshold: 0.4,
       minMatchCharLength: 2,
       keys: props.keys,
       ...props.options,
@@ -56,15 +58,18 @@ export default class FuseBox extends React.Component {
 
   // if there are no search results, show the entire list.
   // convert the props list into the same output shape that comes from fuse.
-  getResults = searchResults => {
-    const results = searchResults.length ? searchResults : this.props.list.map(item => ({ item }));
+  getResults = (fuse, value) => {
+    const searchResults = fuse.search(value);
+    const emptyResults = value ? [] : this.props.list.map(item => ({ item, matches: [] }));
+    const results = searchResults.length ? searchResults : emptyResults;
+
     return results;
   };
 
   handleInputChange = event => {
     event.preventDefault();
     const { value } = event.target;
-    const results = this.getResults(this.state.fuse.search(value));
+    const results = this.getResults(this.state.fuse, value);
     this.setState({ results, value });
 
     // Move the selected item down as the list shrinks.
