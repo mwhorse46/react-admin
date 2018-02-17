@@ -25,7 +25,7 @@ export default class FuseBox extends React.Component {
 
     const value = this.props.defaultSearch;
     const fuse = new Fuse(this.props.list, this.getOptions(this.props));
-    const results = fuse.search(value);
+    const results = this.getResults(fuse.search(value));
 
     this.state = {
       value,
@@ -38,7 +38,7 @@ export default class FuseBox extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.props.list !== prevProps.list) {
       const fuse = new Fuse(this.props.list, this.getOptions(prevProps));
-      const results = fuse.search(this.value);
+      const results = this.getResults(fuse.search(this.value));
       this.setState({ fuse, results });
     }
   }
@@ -54,11 +54,18 @@ export default class FuseBox extends React.Component {
     };
   }
 
+  // if there are no search results, show the entire list.
+  // convert the props list into the same output shape that comes from fuse.
+  getResults = searchResults => {
+    const results = searchResults.length ? searchResults : this.props.list.map(item => ({ item }));
+    return results;
+  };
+
   handleInputChange = event => {
     event.preventDefault();
     const { value } = event.target;
-    const results = this.state.fuse.search(value);
-    this.setState({ value, results });
+    const results = this.getResults(this.state.fuse.search(value));
+    this.setState({ results, value });
 
     // Move the selected item down as the list shrinks.
     if (this.state.selectedIndex > results.length - 1) {
@@ -72,23 +79,21 @@ export default class FuseBox extends React.Component {
     switch (event.keyCode) {
       case 38: // ArrowUp
         event.preventDefault();
-        this.setState(state => {
-          return { selectedIndex: Math.max(--state.selectedIndex, 0) };
-        });
-        break;
+        return this.setState(state => ({
+          selectedIndex: Math.max(--state.selectedIndex, 0),
+        }));
 
       case 40: // ArrowDown
         event.preventDefault();
-        this.setState(state => {
-          return { selectedIndex: Math.min(++state.selectedIndex, state.results.length - 1) };
-        });
-        break;
+        // Greater than 0, but less than the results.
+        return this.setState(state => ({
+          selectedIndex: Math.min(++state.selectedIndex, Math.max(0, state.results.length - 1)),
+        }));
 
       case 13: // Enter
         event.preventDefault();
         const item = this.state.results[this.state.selectedIndex].item;
-        this.props.handleSubmit(item);
-        break;
+        return this.props.handleSubmit(item);
 
       default:
         return;

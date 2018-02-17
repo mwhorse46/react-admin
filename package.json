@@ -1,15 +1,20 @@
 {
   "name": "react-fuse",
-  "version": "0.2",
+  "version": "0.2.0",
   "author": "Daryl Roberts <daryl.roberts@gmail.com>",
   "main": "/dist/main.js",
   "license": "MIT",
   "repository": "https://github.com/sorahn/react-fuse",
   "devDependencies": {
     "babel-preset-react-app": "^3.1.1",
+    "bootstrap": "^4.0.0",
+    "fuse.js": "^3.2.0",
     "react": "^16.3.0-alpha.1",
     "react-dom": "^16.3.0-alpha.1",
-    "react-scripts": "1.1.1"
+    "react-scripts": "1.1.1",
+    "react-transition-group": "^2.2.1",
+    "reactstrap": "^5.0.0-beta",
+    "styled-components": "^3.1.6"
   },
   "peerDependencies": {
     "fuse.js": "^3.2.0",

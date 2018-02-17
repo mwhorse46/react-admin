@@ -1,7 +1,19 @@
+// import "bootstrap/dist/css/bootstrap.css";
 import React, { Component } from "react";
-import logo from "./fuse.svg";
-import "./App.css";
+import logo from "./react-fuse.svg";
 import { FuseBox, InputBus, CurrentResults } from "../lib";
+import {
+  Container,
+  CardTitle,
+  CardBody,
+  Row,
+  Col,
+  Navbar,
+  NavbarBrand,
+  Input,
+  Card,
+} from "reactstrap";
+import styled from "styled-components";
 
 class App extends Component {
   state = {
@@ -16,36 +28,45 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <div className="App-intro">
-          <FuseBox keys={["title", "description"]} list={this.state.list}>
-            <InputBus />
+      <FuseBox keys={["title", "description"]} list={this.state.list}>
+        <div className="App">
+          <Navbar light color="light">
+            <NavbarBrand href="#">React Fuse</NavbarBrand>
+            <Col lg={3}>
+              <InputBus component={Input} autoFocus placeholder="Search title or description" />
+            </Col>
+          </Navbar>
 
+          <br />
+          <div className="App-intro">
             <CurrentResults>
               {({ state }) => {
                 return (
-                  <ul>
-                    {state.results.map((result, index) => {
-                      const active = state.selectedIndex === index;
-                      return (
-                        <li key={result.item.id}>
-                          {active && "💩"}
-                          <big>{result.item.title}</big> -&nbsp;
-                          <small>{result.item.description}</small>
-                        </li>
-                      );
-                    })}
-                  </ul>
+                  <Container>
+                    <Row>
+                      {state.results.map(({ item }, index) => {
+                        const active = state.selectedIndex === index;
+                        const color = active ? "light" : null;
+                        return (
+                          <Col lg={3} key={item.id}>
+                            <Card color={color}>
+                              <CardBody>
+                                <CardTitle>{item.title}</CardTitle>
+                                {item.description}
+                              </CardBody>
+                            </Card>
+                            <br />
+                          </Col>
+                        );
+                      })}
+                    </Row>
+                  </Container>
                 );
               }}
             </CurrentResults>
-          </FuseBox>
+          </div>
         </div>
-      </div>
+      </FuseBox>
     );
   }
 }
