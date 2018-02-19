@@ -9,8 +9,8 @@
     "babel-preset-react-app": "^3.1.1",
     "bootstrap": "^4.0.0",
     "fuse.js": "^3.2.0",
-    "react": "^16.3.0-alpha.1",
-    "react-dom": "^16.3.0-alpha.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "react-scripts": "1.1.1",
     "react-transition-group": "^2.2.1",
     "reactstrap": "^5.0.0-beta",
@@ -18,8 +18,8 @@
   },
   "peerDependencies": {
     "fuse.js": "^3.2.0",
-    "react": "^16.3.0",
-    "react-dom": "^16.3.0"
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
   },
   "scripts": {
     "build": "NODE_ENV=production ./node_modules/react-scripts/node_modules/.bin/webpack",
@@ -28,6 +28,7 @@
     "test": "react-scripts test --env=jsdom"
   },
   "dependencies": {
+    "create-react-context": "^0.1.6",
     "highlight-words-core": "^1.1.2"
   }
 }

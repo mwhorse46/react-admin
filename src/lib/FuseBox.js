@@ -1,8 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Fuse from "fuse.js";
+import createReactContext from "create-react-context";
 
-export const FuseContext = React.createContext({});
+export const FuseContext = React.createContext({})
+  ? React.createContext({})
+  : createReactContext({});
 
 export default class FuseBox extends React.Component {
   static defaultProps = {
