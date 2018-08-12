@@ -4,13 +4,10 @@ import PropTypes from "prop-types";
 import { FuseContext } from "./FuseBox";
 
 export default class InputBus extends React.Component {
-  static defaultProps = {
-    component: "input",
-  };
-
-  static propTypes = {
-    component: PropTypes.any,
-  };
+  handleChange(consumerOnChange) {
+    consumerOnChange();
+    this.props.onChange();
+  }
 
   render() {
     const { component: Component, ...rest } = this.props;
@@ -18,9 +15,22 @@ export default class InputBus extends React.Component {
     return (
       <FuseContext.Consumer>
         {({ state, onKeyDown, onChange }) => (
-          <Component {...rest} value={state.value} onKeyDown={onKeyDown} onChange={onChange} />
+          <Component
+            {...rest}
+            value={state.value}
+            onKeyDown={onKeyDown}
+            onChange={this.handleChange(onChange)}
+          />
         )}
       </FuseContext.Consumer>
     );
   }
+
+  static defaultProps = {
+    component: "input",
+  };
+
+  static propTypes = {
+    component: PropTypes.any,
+  };
 }
