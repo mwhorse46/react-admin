@@ -5,8 +5,10 @@ import { FuseContext } from "./FuseBox";
 
 export default class InputBus extends React.Component {
   handleChange(consumerOnChange) {
-    consumerOnChange();
-    this.props.onChange();
+    return e => {
+      consumerOnChange(e);
+      this.props.onChange(e);
+    };
   }
 
   render() {

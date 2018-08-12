@@ -331,7 +331,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var FuseContext = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createContext({}) ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createContext({}) : __WEBPACK_IMPORTED_MODULE_3_create_react_context___default()({});
+var FuseContext = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createContext ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createContext({}) : __WEBPACK_IMPORTED_MODULE_3_create_react_context___default()({});
 
 var FuseBox = function (_React$Component) {
   _inherits(FuseBox, _React$Component);
@@ -1722,8 +1722,20 @@ var InputBus = function (_React$Component) {
   }
 
   _createClass(InputBus, [{
+    key: "handleChange",
+    value: function handleChange(consumerOnChange) {
+      var _this2 = this;
+
+      return function (e) {
+        consumerOnChange(e);
+        _this2.props.onChange(e);
+      };
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+
       var _props = this.props,
           Component = _props.component,
           rest = _objectWithoutProperties(_props, ["component"]);
@@ -1735,7 +1747,11 @@ var InputBus = function (_React$Component) {
           var state = _ref.state,
               onKeyDown = _ref.onKeyDown,
               onChange = _ref.onChange;
-          return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Component, Object.assign({}, rest, { value: state.value, onKeyDown: onKeyDown, onChange: onChange }));
+          return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Component, Object.assign({}, rest, {
+            value: state.value,
+            onKeyDown: onKeyDown,
+            onChange: _this3.handleChange(onChange)
+          }));
         }
       );
     }
